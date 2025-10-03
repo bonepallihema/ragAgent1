@@ -9,7 +9,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Define your OpenRouter API key (for completion only)
-OPENROUTER_API_KEY = "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"  # Replace with your actual API key
+OPENROUTER_API_KEY = "API_KEY"  # Replace with your actual API key
 
 # Initialize OpenAI client for completions only with proper headers
 client = OpenAI(
@@ -350,4 +350,5 @@ if __name__ == "__main__":
     print(f"\n{'='*50}")
     print("AI RESPONSE:")
     print(f"{'='*50}")
+
     print(completion)
