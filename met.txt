@@ -1,0 +1,293 @@
+Meta’s new CWM model learns how code works, not just what it looks like
+AI research team has released a new large language model (LLM) for coding that enhances code understanding by learning not only what code looks like, but also what it does when executed. The model, named Code World Model (CWM), is trained on vast amounts of data showing how code interacts with its environment, allowing it to build an internal “world model” of how computational systems work.
+
+In addition to learning the dynamics of its environment, CWM shows strong performance on standard coding and math benchmarks, opening a potential new direction for training AI agents that can handle more complex, dynamic software development tasks in enterprise environments. CWM is part of a broader set of efforts to push LLMs beyond next-token prediction into developing world models.
+
+The limits of standard code generation
+Despite recent advances in AI code generation, generating high-quality, reliable code remains a challenge for even the most advanced LLMs. The researchers at Meta suggest this is because the typical training paradigm is insufficient for mastering the complexities of programming.
+
+Typically, a model learns to code by predicting the next instruction in a program, much like it would predict the next word in a sentence. However, the researchers argue that to truly master coding, a model must understand “not just what code looks like but what it does when executed.” This skill is fundamental for software engineers, who have a general understanding of how changes to code will affect local variables or the general behavior of their application. Programmers don’t think about code as a sequence of tokens but as a series of related components (variables, objects, functions, modules, etc.), which they then translate into a series of instructions. In other words, they develop a “world model” of their application as they build it or make changes to it.
+
+This "world modeling" capability is often overlooked in LLMs until after the main training is complete, a practice that the Meta team challenges.
+
+How Code World Model works
+CWM is a new LLM designed to address these challenges by training on extensive "code world modeling data." Instead of waiting until the final fine-tuning stage, CWM is taught how code behaves during its "mid-training" phase. The hypothesis is that grounding the model’s predictions in the dynamics of computational environments early on provides a much stronger foundation for later training and reinforcement learning stages.
+
+CWM mid-training
+The researchers focused on two key types of data. The first is Python code execution traces, which are step-by-step records of how a program's internal state, like its variables, changes as each line of code is run (this is in contrast to the classic training scheme which trains models on code and final results). By training on these observation-action trajectories, CWM obtains a deeper sense of how instructions affect the overall program behavior. “Our premise here is that teaching CWM the semantics and not just syntax of programs should help with writing code as well as with reasoning tasks like verification, testing, and debugging,” the researchers write.
+
+The second data type consists of agentic interactions within Docker environments. The team created a synthetic data generator, called ForagerAgent, that simulates a software engineering agent performing tasks like fixing bugs or implementing new features. By observing these multi-step interactions at a large scale early in its training, CWM learns the dynamics of these environments before it is ever fine-tuned for specific tasks in the same environments.
+
+In practice, this allows CWM to reason about code in a way that mimics a human developer. For example, when tasked with a competitive programming problem, CWM can create an initial solution, then devise its own input-output tests to check for correctness, and finally compare its predicted output against the actual results of running the code. This self-verification loop is a direct result of its world model training.
+
+CWM in action
+The researchers at Meta used the data and training recipe to train a 32-billion-parameter model with a context window of up to 131,000 tokens. The model shows promising results on key industry benchmarks. On SWE-bench Verified, a benchmark that involves resolving real-world issues from GitHub repositories, CWM achieved a 65.8% pass rate, outperforming other open-weight models of a similar size. It also scored highly on LiveCodeBench (a benchmark for competitive programming), Math-500 and AIME 2024 (mathematical reasoning), and CruxEval (predicting Python code output).
+
+CWM SWE-Bench
+Based on these results, the researchers believe that world models “can benefit agentic coding, enable step-by-step simulation of Python code execution, and show early results of how reasoning can benefit from the latter.” However, they also stress the model’s limitations. CWM is released as a research model under a noncommercial license and is not intended as a general-purpose assistant or chatbot. While it received some instruction-following data, it has not undergone the extensive optimization needed for conversational use.
+
+While optimistic about the future of this approach, the Meta team notes that these “are only our first steps in this direction.” They see a significant opportunity for future work, stating that “robust ways to leverage world model knowledge to improve performance across a variety of tasks via prompting or fine-tuning is a ripe area for research.”
+
+World models are key to intelligence
+CWM comes against the backdrop of growing interest in imbuing LLMs with something more than just the ability to predict the next token. Chain-of-thought (CoT) reasoning, the most popular such technique, forces models to write their “thoughts” before producing the final answer. Reasoning models such as DeepSeek-R1 use reinforcement learning to force LLMs to generate longer CoTs, where they reflect on their answer and correct it before generating it. But CoT is still a token-generation process, and there is evidence and research that shows CoT only represents an illusion of thinking and cannot be relied on as real evidence of reasoning. 
+
+World models are a more recent and advanced stab at this problem. Instead of framing the problem as a next-token prediction objective, they try to force the LLM to develop a model of the world in its latent space, which is not necessarily represented in the output tokens. Another recent paper combines the strengths of LLMs with JEPA, a deep learning architecture specifically designed for world modeling. Early results show that LLM-JEPA is more robust against changes to its environment and can learn new tasks more efficiently than models trained on pure next-token prediction.
+
+It remains to be seen how well researchers can reconcile these different AI architectures. But what seems to be certain is that having a robust world model makes AI systems more robust and reliable in the constantly changing environments of real-world applications.
+
+
+
+
+Subscribe to get latest news!
+Deep insights for enterprise AI, data, and security leaders
+
+VB Daily
+AI Weekly
+AGI Weekly
+Security Weekly
+Data Infrastructure Weekly
+VB Events
+All of them
+Enter Your Email
+
+Get updates
+
+Ad Feedback
+Partner Content
+Companies are sleepwalking into agentic AI sprawl
+Rory Blundell, Gravitee
+September 25, 2025
+AI agents.
+
+
+
+Agentic AI is multiplying inside enterprises faster than most leaders realize. These intelligent agents can automate processes, make decisions, and act on behalf of employees. They’re showing up in customer support, IT operations, HR, and finance.
+
+The problem? One rogue agent with access to your ERP, CRM, or databases could wreak more havoc than a malicious insider. And unlike a human threat, an agent can replicate, escalate, and spread vulnerabilities in seconds.
+
+The business benefits are real, but many organizations are rushing ahead without the foundations to contain risk. In chasing speed, they may be trading innovation for unprecedented security threats, runaway costs, and enterprise-wide crises.
+
+The illusion of AI readiness
+Leaders often believe they’re ready for AI adoption because they’ve chosen the “right” model or vendor. But readiness isn’t about software, it’s about infrastructure.
+
+While many organizations are still stuck in “experimentation mode,” the most advanced players are moving aggressively. They are building agent-first systems, enabling machine-to-machine communication, and restructuring their APIs and internal tooling to serve intelligent, autonomous agents — not humans.
+
+There are four phases to our AI Maturity and Readiness model: Exploration & Ideation, Efficiency & Optimization, Governance & Control, and finally Innovation & Transformation.
+
+To support agents responsibly, and reach the final phase of maturity, organizations need:
+
+Governance: clear policies and oversight
+
+Discoverable APIs: machine-readable blueprints, not PDFs
+
+Event-driven architecture: so agents react in real time
+
+Proactive controls: rate limits, analytics, and monitoring from day one
+
+Without these, AI can’t deliver value — only vulnerability. And one rogue agent can quickly put a company out of control unless the right set-up is in place. 
+
+The rogue agent problem
+It’s not the number of agents that matters. It’s their scope.
+
+Imagine a developer creating an agent with broad access across CRM, ERP, and databases. That single agent could be repurposed into multiple use cases — like a Slack bot—turning convenience into a critical vulnerability.
+
+This is the new insider threat: faster proliferation, more connections, and less visibility.
+
+An identity crisis at machine speed
+Another overlooked challenge is identity. Human and application identities are well understood, but agent identities are new and unsettled.
+
+Today, enterprises simply can’t securely manage millions of agent identities in real time. Standards are still catching up, leaving organizations exposed. And when credentials leak at machine speed, the damage can be immediate and catastrophic.
+
+Best practices are emerging: avoid hardcoded credentials, scope access tightly, and ensure revocations cascade across systems. But most companies aren’t there yet.
+
+Agent sprawl and exploding bills
+Even without breaches, costs can spiral.
+
+Agents are easy to create but hard to track. Teams spin them up independently, leading to overlaps, redundancies, and runaway API calls. In some cases, agents loop endlessly, overloading systems and sending cloud bills skyrocketing.
+
+This isn’t a minor side effect's governance failure. Guardrails like quota enforcement, usage analytics, and rate limiting aren’t optional extras. They’re the only way to keep systems and budgets intact.
+
+APIs: A weak link in the agentic AI chain
+Every AI agent depends on APIs. Yet most APIs weren’t built for autonomous machines, they were built for developers.
+
+Without governance, authentication breaks down, rate limits vanish, and failures multiply.
+
+The solution is centralized API management. Gateways that enforce consistent authentication, authorization, and logging provide the predictability both humans and agents require. Without this, agents are flying blind.
+
+Autonomy vs. control
+Agentic AI’s promise is autonomy: self-directed systems that can take action without human oversight. 
+
+The model that works is borrowed from platform engineering. Over the last decade, many companies have adopted platform teams to provide standardized, compliant tools that empower developers without sacrificing control.
+
+Agentic AI requires the same approach: centralized, compliant platforms that provide visibility and security while allowing teams to innovate. 
+
+Building the guardrails: Agent management and protocols
+The path to a secure and effective agentic future requires dedicated solutions. Centralized AI Agent Management is paramount. This includes AI Gateways, which control agent API calls, enforce security rules, and manage rate limiting to prevent system overload. It also involves Agent Catalogs, searchable directories that list every agent, its function, owner, and permissions, preventing redundant development and providing a clear map for security and compliance teams. Monitoring and observability dashboards are crucial for tracking agent activity and flagging unusual behavior.
+
+To address the inherent chaos of unstructured inter-agent communication, the Agent-to-Agent (A2A) protocol, an open standard introduced by Google, is vital. A2A brings structure, trust, and interoperability by defining how agents discover each other, securely exchange information, and adhere to policy rules across diverse environments. Platforms like Gravitee's Agent Mesh natively support A2A, offering centralized registries, traffic shaping, and out-of-the-box security for agent fleets.
+
+The human dimension
+Technology isn’t the only barrier. There’s a cultural one, too. Many employees are already experiencing “transformation fatigue” from years of digital change initiatives. If agentic AI is rolled out without trust, transparency, and training, adoption will falter and resistance will grow.
+
+Leaders must strike a balance: make AI useful at the frontline while ensuring compliance at the center. That alignment between executive mandate and employee ownership will determine whether deployments succeed or collapse.
+
+Wake up before the breach
+Agentic AI isn’t on the horizon — it’s already multiplying inside your company. Without governance, observability, and identity controls, organizations risk trading short-term productivity for long-term crises.
+
+The companies that succeed won’t be the fastest to deploy agents. They’ll be the ones that deploy them responsibly, with architectures built for scale, safety, and trust.
+
+The choice is clear: wake up now, or keep sleepwalking until the wake-up call comes in the form of a breach, a blown budget, or a board-level crisis.
+
+Gravitee is hosting an A2A Summit for leaders navigating agentic AI on November 6, 2025, in NYC, in partnership with The Linux Foundation. The event will explore the future of agent-to-agent (A2A) orchestration and autonomous enterprise systems, bringing together technology leaders from Gartner, Google, McDonald’s, Microsoft and others to provide actionable insights to help organizations tackle agent sprawl and unlock the full potential of AI-driven decision-making. Learn more here.
+
+Rory Blundell is CEO at Gravitee.
+
+Sponsored articles are content produced by a company that is either paying for the post or has a business relationship with VentureBeat, and they’re always clearly marked. For more information, contact sales@venturebeat.com.
+
+
+
+Thinking Machines' first official product is here: meet Tinker, an API for distributed LLM fine-tuning
+Carl Franzen
+October 1, 2025
+Robot assembles wood on desk by PC
+
+
+
+Thinking Machines, the AI startup founded earlier this year by former OpenAI CTO Mira Murati, has launched its first product: Tinker, a Python-based API designed to make large language model (LLM) fine-tuning both powerful and accessible. 
+
+Now in private beta, Tinker gives developers and researchers direct control over their training pipelines while offloading the heavy lifting of distributed compute and infrastructure management.
+
+As Murati wrote in a post on the social network X: "Tinker brings frontier tools to researchers, offering clean abstractions for writing experiments and training pipelines while handling distributed training complexity. It enables novel research, custom models, and solid baselines."
+
+Tinker’s launch is the first public milestone for Thinking Machines, which raised $2 billion earlier this year from a16z, NVIDIA, Accel, and others. 
+
+The company’s goal is to support more open and customizable AI development — a mission that appears to resonate with both independent researchers and institutions frustrated by the opaque tooling around today’s proprietary models.
+
+A Developer-Centric Training API
+Tinker is not another drag-and-drop interface or black-box tuning service. Instead, it offers a low-level but user-friendly API, giving researchers granular control over loss functions, training loops, and data workflows — all in standard Python code. 
+
+The actual training workloads run on Thinking Machines’ managed infrastructure, enabling fast distributed execution without any of the usual GPU orchestration headaches.
+
+At its core, Tinker offers:
+
+Python-native primitives like forward_backward and sample, enabling users to build custom fine-tuning or RL algorithms.
+
+Support for both small and large open-weight models, including Mixture-of-Experts architectures like Qwen-235B-A22B.
+
+Integration with LoRA-based tuning, allowing multiple training jobs to share compute pools, optimizing cost-efficiency.
+
+An open-source companion library called the Tinker Cookbook, which includes implementations of post-training methods.
+
+As University of Berkeley computer science PhD student Tyler Griggs wrote on X after testing the API, “Many RL fine-tuning services are enterprise-oriented and don’t let you replace training logic. With Tinker, you can ignore compute and just ‘tinker’ with the envs, algs, and data.”
+
+Real-World Use Cases Across Institutions
+Before its public debut, Tinker was already in use across several research labs. Early adopters include teams from, yes, Berkeley as well as Princeton, Stanford,, and Redwood Research, each applying the API to unique model training problems:
+
+Princeton's Goedel Team fine-tuned LLMs for formal theorem proving. Using Tinker and LoRA with just 20% of the data, they matched the performance of full-parameter SFT models like Goedel-Prover V2. Their model, trained on Tinker, reached 88.1% pass@32 on the MiniF2F benchmark and 90.4% with self-correction, beating out larger closed models.
+
+Rotskoff Lab at Stanford used Tinker to train chemical reasoning models. With reinforcement learning on top of LLaMA 70B, accuracy on IUPAC-to-formula conversion jumped from 15% to 50%, a boost researchers described as previously out of reach without major infra support.
+
+SkyRL at Berkeley ran custom multi-agent reinforcement learning loops involving async off-policy training and multi-turn tool use — made tractable thanks to Tinker’s flexibility.
+
+Redwood Research used Tinker to RL-train Qwen3-32B on long-context AI control tasks. Researcher Eric Gan shared that without Tinker, he likely wouldn’t have pursued the project, noting that scaling multi-node training had always been a barrier.
+
+These examples demonstrate Tinker’s versatility — it supports both classical supervised fine-tuning and highly experimental RL pipelines across vastly different domains.
+
+Community Endorsements from the AI Research World
+The Tinker announcement sparked immediate reactions from across the AI research community.
+
+Former OpenAI co-founder and former Tesla AI head Andrej Karpathy (now head of AI-native school Eureka Labs) praised Tinker’s design tradeoffs, writing on X: “Compared to the more common and existing paradigm of ‘upload your data, we’ll post-train your LLM,’ this is, in my opinion, a more clever place to slice up the complexity of post-training.”
+
+He added that Tinker lets users retain ~90% of algorithmic control while removing ~90% of infrastructure pain.
+
+John Schulman, former co-founder of OpenAI and now chief scientist and a co-founder of Thinking Machines, described Tinker on X as “the infrastructure I’ve always wanted," and included a quote attributed to late British philosopher and mathematician Alfred North Whitehead: "Civilization advances by extending the number of important operations which we can perform without thinking of them."
+
+Others noted how clean the API was to use and how smoothly it handled RL-specific scenarios like parallel inference and checkpoint sampling. 
+
+Philipp Moritz and Robert Nishihara, co-founders of AnyScale and creators of the widely used open source AI applications scaling framework Ray, highlighted the opportunity to combine Tinker with distributed compute frameworks for even greater scale.
+
+Free to Start, Pay-As-You-Go Pricing Coming Soon
+Tinker is currently available in private beta, with a waitlist sign-up open to developers and research teams. During the beta, use of the platform is free. A usage-based pricing model will be introduced in the coming weeks.
+
+For organizations interested in deeper integration or dedicated support, the company invites inquiries through its website.
+
+Background on Thinking Machines and OpenAI Exodus
+Thinking Machines was founded by Mira Murati, who served as CTO of OpenAI until her departure in September 2024. Her exit followed a period of organizational instability at OpenAI and marked one of several high-profile researcher departures, especially on OpenAI's superalignment team, which has since been disbanded.
+
+Murati announced her new company's vision in early 2025, emphasizing three pillars:
+
+Helping people adapt AI systems to their specific needs
+
+Building strong foundations for capable and safe AI
+
+Fostering open science through public releases of models, code, and research
+
+In July, Murati confirmed that the company had raised $2 billion, positioning Thinking Machines as one of the most well-funded independent AI startups. Investors cited the team’s experience in core breakthroughs like ChatGPT, PPO, TRPO, PyTorch, and the OpenAI Gym.
+
+The company distinguishes itself by focusing on multimodal AI systems that collaborate with users through natural communication, rather than aiming for fully autonomous agents. Its infrastructure and research efforts aim to support high-quality, adaptable models while maintaining rigorous safety standards.
+
+Since then, it has also published several research papers on open source techniques that anyone in the machine learning and AI community can use freely.
+
+This emphasis on openness, infrastructure quality, and researcher support sets Thinking Machines apart — even as the open source AI market has become intensely competitive, with numerous companies fielding powerful models that rival the performance of well-capitalized U.S. labs like OpenAI, Anthropic, Google, Meta, and others. 
+
+As competition for developer mindshare heats up, Thinking Machines is signaling that it’s ready to meet demand with a product, technical clarity, and public documentation.
+
+Subscribe to get latest news!
+Deep insights for enterprise AI, data, and security leaders
+
+VB Daily
+AI Weekly
+AGI Weekly
+Security Weekly
+Data Infrastructure Weekly
+VB Events
+All of them
+Enter Your Email
+
+Get updates
+
+Ad Feedback
+Partner Content
+Why identity-first security is the first defense against sophisticated AI-powered social engineering
+VB Staff
+September 24, 2025
+AdobeStock 1320027548 Preview
+
+
+
+Presented by Cisco
+
+Enterprise security is having an identity crisis. Attackers aren't going after zero-day exploits on a server or an operating system; instead, the vast majority of security breaches are happening in a surprisingly low-tech wave of identity compromise via social engineering. 
+
+"Con men, and social engineering, have been around for a long time," says Matt Caulfied, VP of product, identity at Cisco. "The oldest trick in the book is sneaking in by putting on a construction vest and walking in the front door, and this is essentially the same thing. You trick someone into giving you access to their account, and use it to get all the access that they have, as far as you can go."
+
+Consider spearphishing which once meant laboriously researching a few high-value targets. With AI, attackers can generate target lists, identify those targets’ nearest relatives, and fire off convincing emails and texts at scale — multiplying their odds, even for non-native speakers without strong language skills.
+
+However, there's a clear disconnect between awareness and execution in the enterprise. Cisco Duo’s 2025 State of Identity Security report found that 51% of organizations have suffered financial losses from identity-related breaches. So why do 74% of IT leaders admit that identity security is an infrastructure-planning afterthought?
+
+"It’s a fundamentally hard problem to solve," Caulfield says. "Identity security is unique in that it combines social aspects, and a psychological aspect, with a technical aspect. Over time, just as their targets get better at defending themselves, attackers get better at attacking their targets. And while we know how to prevent identity breaches entirely, most of those mechanisms have been incredibly expensive and difficult to scale, from an operational perspective."
+
+But strong identity and access management (IAM) is no longer optional — it must actually be the foundation of enterprise security, rather than just one pillar, especially as AI agents gain a foothold in organizations as a third class of users, without any of the restraints or guardrails that humans presumably have.
+
+A new definition of zero trust
+Today you can't trust users just because they’re on the network, or coming from a corporate device; you can only establish trust through strong cryptographic identity authentication. That shifts trust from the network over to identity systems that authenticate the user. And since a zero-trust system is just going to enforce what the identity system tells it to, identity has to be the foundation of an enterprise security process — keeping systems safe, humans from being hijacked, and AI agents performing only the actions they're meant to take.
+
+If that authentication and authorization step is wrong, then it doesn’t matter how good your network access control is. However, traditional second-factor and multi-factor authentication is no longer enough, since an SMS message, call-back number or even a verified push notification can all be hacked.
+
+"Only one in three leaders trust their current identity providers to stop identity-based attacks. Just because you’re doing identity doesn’t mean you’re doing identity securely," Caulfield explains. " Phishing-resistant authentication is the new gold standard, where a user cannot be tricked into giving away the keys to the kingdom. They would need to literally be at your desk with you, while you're using your laptop, in order to take over your account."
+
+However, until now, phishing-resistant MFA approaches have either been too complex or too expensive to implement. While 87% of leaders believe phishing-resistant MFA is critical to a security strategy, only 19% of companies have deployed FIDO2 tokens, which are a standard way to achieve phishing-resistant MFA. Hardware tokens are often reserved for privileged users, adoption often stalls out here due to token management complexity (what happens when a token is lost, for example?), the expense and complications of training, and just the cost of creating and distributing a hardware solution.
+
+Security as an enabler
+Awareness of identity security is growing, Caulfield adds, with 82% of financial decision-makers increasing budgets for identity security. But security can't be treated as an add-on, because that results in tool sprawl, which adds additional costs, complexity, and misalignment, along with decreased visibility overall. To address that head-on, 79% of leaders are exploring identity vendor consolidation, which massively cuts down the operational drag of tool proliferation. 
+
+Integrated tools that offer interoperability in multi-cloud environments offer strategic simplification that not only reduces costs and increases security, but improves organizational efficiency for IT and end users.
+
+"Identity management and security is not just a necessary evil, it's an enabler for a workforce and for customers interacting with a business. It's as much a security concern as it is a productivity and IT concern," he says. "Phishing-resistant authentication is that easy button to get to the identity-first approach to security that makes it work."
+
+Learn how Duo and Cisco Identity Intelligence are helping global teams make sense of the complex identity landscape: Download Cisco Duo’s report, The 2025 State of Identity Security: Challenges and Strategies from IT and Security Leaders.
+
+Sponsored articles are content produced by a company that is either paying for the post or has a business relationship with VentureBeat, and they’re always clearly marked. For more information, contact sales@venturebeat.com.
+
+
+
